@@ -1,4 +1,4 @@
-package com.evaluation.warehouse.models;
+package com.evaluation.dataloader.models;
 
 /*
  * {"product":"UTX","quantity":82,"price":"$4.84","type":"S","industry":"Aerospace","origin":"TX"}
@@ -125,3 +125,4 @@ public class Item {
 		return sb.toString().hashCode();
 	}
 }
+

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.evaluation.dataloader.models.DatafileInformation;
 import com.evaluation.dataloader.services.ItemDataloaderService;
 
 @RestController
@@ -25,5 +26,13 @@ public class ItemDataloaderController {
 		return response;
 	}
 	
+	
+	@GetMapping("/fileinfo")
+	public DatafileInformation getDatafileInfo()  {
+		DatafileInformation dataInfo = new DatafileInformation();
+		dataInfo.setDatafiles(itemDataloadService.getListDatafiles());
+		
+		return dataInfo;
+	}
 	
 }

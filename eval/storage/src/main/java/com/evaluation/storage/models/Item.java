@@ -1,7 +1,5 @@
 package com.evaluation.storage.models;
 
-import com.evaluation.storage.models.Item;
-
 /*
  * {"product":"UTX","quantity":82,"price":"$4.84","type":"S","industry":"Aerospace","origin":"TX"}
  */

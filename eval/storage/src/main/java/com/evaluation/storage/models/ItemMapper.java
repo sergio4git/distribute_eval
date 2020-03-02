@@ -17,6 +17,10 @@ public class ItemMapper {
 		return itemMap.get(product);
 	}
 	
+	public long getSize() {
+		return itemMap.size();
+	}
+	
 	public void addItems(List<Item> listItems) {
 		Map<String,List<Item>> newMap = listItems.stream().collect(Collectors.groupingBy(Item::getProduct));
         newMap.forEach((K, V) -> {

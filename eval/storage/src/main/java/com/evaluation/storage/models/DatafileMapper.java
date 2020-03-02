@@ -13,6 +13,14 @@ public class DatafileMapper {
 		datafileMapper = new HashMap<String,DatafileTracker>();
 	}
 
+	
+	
+	public Map<String, DatafileTracker> getDatafileMapper() {
+		return datafileMapper;
+	}
+
+
+
 	public void addFileList(List<String> listFiles) {
 		listFiles.stream().forEach(file -> addTracker(file) );
 	}
@@ -24,10 +32,25 @@ public class DatafileMapper {
 		}
 	}
 	
-	public void updateTracker(DatafileTracker datafileTracker) {
-		String filename = datafileTracker.getFileName();
-		if ( datafileMapper.containsKey(filename) ) {
-			datafileMapper.replace(filename, datafileTracker);
+	public void updateTracker(DatafileMessage datafileMessage) {
+		String filename = datafileMessage.getFilename();
+		datafileMapper.get(filename).update(datafileMessage.getBytesConsumed(),datafileMessage.isFinished());
+	}
+	
+	public boolean accept(DatafileMessage datafileMessage) {
+		String filename = datafileMessage.getFilename();
+		
+		// refuse if file doesnt exist
+		if ( datafileMapper.containsKey(filename)) {
+			DatafileTracker datafileTracker = datafileMapper.get(filename);
+			
+			// refuse if file is finished
+			if ( datafileTracker.isFinished() )
+				return false;
+
+			return true;
 		}
+		
+		return false;
 	}
 }

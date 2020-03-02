@@ -1,4 +1,4 @@
-package com.evaluation.warehouse.models;
+package com.evaluation.dataloader.models;
 
 import java.io.IOException;
 

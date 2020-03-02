@@ -2,7 +2,7 @@ package com.evaluation.storage.models;
 
 public class DatafileTracker {
 
-	private String 	fileName;
+	private String 	filename;
 	private long	bytesConsumed;
 	private boolean	finished;
 	
@@ -10,16 +10,16 @@ public class DatafileTracker {
 	}
 
 	public DatafileTracker(String filename) {
-		this.fileName = filename;
+		this.filename = filename;
 		finished = false;
 	}
 	
-	public String getFileName() {
-		return fileName;
+	public String getFilename() {
+		return filename;
 	}
 
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
+	public void setFilename(String fileName) {
+		this.filename = fileName;
 	}
 
 	public long getBytesConsumed() {
@@ -37,6 +37,9 @@ public class DatafileTracker {
 	public void setFinished(boolean finished) {
 		this.finished = finished;
 	}
-
 	
+	public void update(long	bytesConsumed,boolean finished) {
+		this.bytesConsumed += bytesConsumed;
+		this.finished = finished;
+	}
 }

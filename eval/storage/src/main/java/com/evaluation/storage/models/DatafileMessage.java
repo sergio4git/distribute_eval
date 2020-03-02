@@ -1,4 +1,4 @@
-package com.evaluation.dataloader.models;
+package com.evaluation.storage.models;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,5 +76,5 @@ public class DatafileMessage {
 		this.listItems.addAll(listItems);
 		this.bytesConsumed += bytesConsumed;
 	}
-
 }
+

@@ -45,6 +45,12 @@ public class ItemStorageController {
 		return itemStorageService.getDatafileMapper();
 	}
 	
+	@GetMapping("/itemQtd")
+	public long getItemQtd()  {
+		
+		return itemStorageService.getItemMapper().getSize();
+	}
+	
 	@GetMapping("/load")
 	public void loadData()  {
 		itemStorageService.requestFileInfo();

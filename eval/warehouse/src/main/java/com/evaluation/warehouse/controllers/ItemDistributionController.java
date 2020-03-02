@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.evaluation.warehouse.models.ItemDistributionResponse;
-import com.evaluation.warehouse.models.ItemWrapper;
 import com.evaluation.warehouse.services.ItemDistributionService;
 
 @RestController
@@ -20,8 +19,6 @@ public class ItemDistributionController {
 	
 	@Autowired
 	private RestTemplate restTemplate;
-	
-	private ItemWrapper itemWrapper;
 	
 	@GetMapping("/hello")
 	public String hello()  {

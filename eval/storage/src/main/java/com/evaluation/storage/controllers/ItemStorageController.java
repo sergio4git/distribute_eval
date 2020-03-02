@@ -5,14 +5,10 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.evaluation.storage.models.DatafileInformation;
 import com.evaluation.storage.models.DatafileMapper;
-import com.evaluation.storage.models.DatafileMessage;
 import com.evaluation.storage.models.ItemWrapper;
 import com.evaluation.storage.services.ItemStorageService;
 

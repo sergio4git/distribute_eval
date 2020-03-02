@@ -94,10 +94,7 @@ public class Item {
 	public boolean equals(Object o) {
 		if ( !(o instanceof Item) )
 			return false;
-		
-		if ( o == null )
-			return false;
-		
+
 		Item oItem = (Item )o;
 		if ( !this.product.equals(oItem.product) )
 			return false;

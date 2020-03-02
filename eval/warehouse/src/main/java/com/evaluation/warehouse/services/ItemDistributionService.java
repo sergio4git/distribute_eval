@@ -50,11 +50,17 @@ public class ItemDistributionService {
 			
 		}
 		
-		basicReader = new BasicDataReader();
+		//basicReader = new BasicDataReader();
 		idResponse.setMsg("Distributing "+product+" between "+ number);
-		ItemWrapper itemWrapper = basicReader.getItemListByProduct(product);
+		//ItemWrapper itemWrapper = basicReader.getItemListByProduct(product);
+		try {
+			ItemWrapper itemWrapper = restTemplate.getForObject("http://storage-service/store/list/"+product, ItemWrapper.class);
+			idResponse.setListItemDistribution(doDistribution(product,itemWrapper.getData(),number));
+		} catch (Exception e ) {
+			logger.error(e.toString());
+			idResponse.setMsg(e.toString());
+		}
 		
-		idResponse.setListItemDistribution(doDistribution(product,itemWrapper.getData(),number));
 		return idResponse;
 	}
 	

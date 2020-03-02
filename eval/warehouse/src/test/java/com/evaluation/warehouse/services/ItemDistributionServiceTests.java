@@ -37,28 +37,28 @@ public class ItemDistributionServiceTests {
 	@Autowired
 	private BasicDataReader basicReader;
 	
-	@Test
+	//@Test
 	public void testBasicDistributionZero() {
 		assertEquals("Invalid number",itemDistributionService.getDistribution("Product 1",0).getMsg(),"Should return a number error message");
 	}
 
-	@Test
+	//@Test
 	public void testBasicDistributionEmptyProduct() {
 		assertEquals("Invalid product",itemDistributionService.getDistribution("",4).getMsg(),"Should return a product error message");
 	}
 
-	@Test
+	//@Test
 	public void testBasicDistributionNullProduct() {
 		assertEquals("Invalid product",itemDistributionService.getDistribution(null,4).getMsg(),"Should return a product error message");
 	}
 
-	@Test
+	//@Test
 	public void testListBasicReader() {
 		ItemWrapper itemWrapper = basicReader.getItemListByProduct("EMMS");
 		assertEquals(270L,itemWrapper.getData().stream().mapToLong(item -> item.getQuantity()).sum(),"Should return the sum of the quantities");
 	}
 	
-	@Test
+	//@Test
 	public void testBasicDistributionEMMS() {
 		int number = 2;
 		ItemDistributionResponse idResponse = itemDistributionService.getDistribution("EMMS", number);

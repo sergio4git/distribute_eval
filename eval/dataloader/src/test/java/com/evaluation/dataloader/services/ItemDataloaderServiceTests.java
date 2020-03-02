@@ -18,4 +18,9 @@ public class ItemDataloaderServiceTests {
 	public void testGetListDatafiles() {
 		assertEquals(4,itemDataLoaderService.getListDatafiles().size(),"Should return 4 files");
 	}
+	
+	@Test
+	public void testBasicLoadfile() {
+		assertEquals(true,itemDataLoaderService.loadFile("data_1.json").isSuccess(),"Should have read");
+	}
 }

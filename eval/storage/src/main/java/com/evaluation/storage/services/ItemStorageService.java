@@ -117,7 +117,7 @@ public class ItemStorageService {
 	
 	public boolean loadData() {
 		boolean succeeded = true;
-		for ( String filename: datafileMapper.getDatafileMapper().keySet()) {
+		for ( String filename: datafileMapper.getTrackerMap().keySet()) {
 				logger.info("Requesting load for "+filename);
 				if (!loadFile(filename) ) {
 					// also remove or invalidate tracker

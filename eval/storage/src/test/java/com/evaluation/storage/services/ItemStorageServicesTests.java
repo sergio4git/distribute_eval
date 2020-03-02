@@ -79,4 +79,10 @@ public class ItemStorageServicesTests {
 		list = itemStorageService.getItems("EMMS");
 		assertEquals(2L,list.size(),"Should have inseerted 2 items on map");
 	}
+	
+	@Test
+	public void testRealLoad() {
+		itemStorageService.requestFileInfo();
+		assertEquals(4,itemStorageService.getDatafileMapper().getTrackerMap().size(),"Should have inseerted 4 files on map");
+	}
 }

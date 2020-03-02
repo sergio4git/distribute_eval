@@ -33,6 +33,7 @@ public class DatafileReader {
 			objectMapper.registerModule(module);
 
 			ItemWrapper itemWrapper = objectMapper.readValue(sb.toString(), ItemWrapper.class);
+			
 			// this doesnt consider lf/cr+lf
 			datafileMessage.setBytesConsumed(sb.length());
 			datafileMessage.setListItems(itemWrapper.getData());

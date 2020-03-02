@@ -6,17 +6,17 @@ import java.util.Map;
 
 public class DatafileMapper {
 
-	private Map<String,DatafileTracker> datafileMapper;
+	private Map<String,DatafileTracker> trackerMap;
 	
 	public DatafileMapper() {
 		super();
-		datafileMapper = new HashMap<String,DatafileTracker>();
+		trackerMap = new HashMap<String,DatafileTracker>();
 	}
 
 	
 	
-	public Map<String, DatafileTracker> getDatafileMapper() {
-		return datafileMapper;
+	public Map<String, DatafileTracker> getTrackerMap() {
+		return trackerMap;
 	}
 
 
@@ -26,23 +26,23 @@ public class DatafileMapper {
 	}
 	
 	public void addTracker(String filename) {
-		if ( !datafileMapper.containsKey(filename) ) {
+		if ( !trackerMap.containsKey(filename) ) {
 			DatafileTracker datafileTracker = new DatafileTracker(filename);
-			datafileMapper.put(filename,datafileTracker);
+			trackerMap.put(filename,datafileTracker);
 		}
 	}
 	
 	public void updateTracker(DatafileMessage datafileMessage) {
 		String filename = datafileMessage.getFilename();
-		datafileMapper.get(filename).update(datafileMessage.getBytesConsumed(),datafileMessage.isFinished());
+		trackerMap.get(filename).update(datafileMessage.getBytesConsumed(),datafileMessage.isFinished());
 	}
 	
 	public boolean accept(DatafileMessage datafileMessage) {
 		String filename = datafileMessage.getFilename();
 		
 		// refuse if file doesnt exist
-		if ( datafileMapper.containsKey(filename)) {
-			DatafileTracker datafileTracker = datafileMapper.get(filename);
+		if ( trackerMap.containsKey(filename)) {
+			DatafileTracker datafileTracker = trackerMap.get(filename);
 			
 			// refuse if file is finished
 			if ( datafileTracker.isFinished() )

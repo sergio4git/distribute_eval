@@ -1,6 +1,5 @@
 package com.evaluation.dataloader.models;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -8,18 +7,31 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
+
 public class DirectoryScanner {
 
-	private String basePath = "D:\\Temp\\UBS\\teste-fullstack\\massa";
+	private Logger logger = LogManager.getLogger();
+	private String basePath;
+	
+
+	public DirectoryScanner() {
+	}
+
+	public DirectoryScanner(String basePath) {
+		this.basePath = basePath;
+	}
 	
 	public List<String> getDatafiles() {
 		List<String> listDatafile;
 		String pattern ="^data_\\d.json$";
-		try (Stream<Path> walk = Files.walk(Paths.get( basePath))) {
+		try (Stream<Path> walk = Files.walk(Paths.get(basePath))) {
 			listDatafile = walk.map(x -> x.getFileName().toString()).filter(f -> f.matches(pattern)).collect(Collectors.toList());
 			 return listDatafile;
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			logger.error(e.toString());
 			return null;
 		}
 	}

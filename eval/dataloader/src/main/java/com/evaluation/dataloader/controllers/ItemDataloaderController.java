@@ -41,11 +41,11 @@ public class ItemDataloaderController {
 		return dataInfo;
 	}
 	
-	@GetMapping("/fileread/{filename}")
-	public DatafileMessage getDatafile(@PathVariable("filename") String filename)  {
+	@GetMapping("/fileread/{filename}/{bytesConsumed}")
+	public DatafileMessage getDatafile(@PathVariable("filename") String filename,@PathVariable("bytesConsumed") long bytesConsumed)  {
 		
 		logger.info("Received request for "+filename);
-		DatafileMessage datafileMessage = itemDataloaderService.loadFile(filename);
+		DatafileMessage datafileMessage = itemDataloaderService.loadFile(filename,bytesConsumed);
 		
 		return datafileMessage;
 	}	

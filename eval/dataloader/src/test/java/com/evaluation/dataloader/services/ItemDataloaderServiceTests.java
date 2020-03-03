@@ -21,6 +21,11 @@ public class ItemDataloaderServiceTests {
 	
 	@Test
 	public void testBasicLoadfile() {
-		assertEquals(true,itemDataLoaderService.loadFile("data_1.json").isSuccess(),"Should have read");
+		assertEquals(true,itemDataLoaderService.loadFile("data_1.json",12000).isSuccess(),"Should have read");
+	}
+	
+	@Test
+	public void testBasicLoadfileNew() {
+		assertEquals(true,itemDataLoaderService.loadFile("data_1.json",12000).isSuccess(),"Should have read");
 	}
 }

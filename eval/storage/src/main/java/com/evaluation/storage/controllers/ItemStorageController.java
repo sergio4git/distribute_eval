@@ -49,7 +49,12 @@ public class ItemStorageController {
 	
 	@GetMapping("/load")
 	public void loadData()  {
-		itemStorageService.requestFileInfo();
 		itemStorageService.loadData();
 	}
+	
+	@GetMapping("/loadList")
+	public void loadList()  {
+		itemStorageService.requestFileInfo();
+	}
+
 }

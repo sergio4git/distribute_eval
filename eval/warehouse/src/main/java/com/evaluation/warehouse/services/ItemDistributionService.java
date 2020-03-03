@@ -53,12 +53,14 @@ public class ItemDistributionService {
 		//basicReader = new BasicDataReader();
 		idResponse.setMsg("Distributing "+product+" between "+ number);
 		//ItemWrapper itemWrapper = basicReader.getItemListByProduct(product);
+		ItemWrapper itemWrapper = null;
 		try {
-			ItemWrapper itemWrapper = restTemplate.getForObject("http://storage-service/store/list/"+product, ItemWrapper.class);
+			itemWrapper = restTemplate.getForObject("http://storage-service/store/list/"+product, ItemWrapper.class);
 			idResponse.setListItemDistribution(doDistribution(product,itemWrapper.getData(),number));
 		} catch (Exception e ) {
 			logger.error(e.toString());
-			idResponse.setMsg(e.toString());
+			if ( itemWrapper == null )
+				idResponse.setMsg("Error on storage service/discovery service.");
 		}
 		
 		return idResponse;
@@ -78,18 +80,27 @@ public class ItemDistributionService {
 					
 		// Create [number] deep copies of itemBaseline, and assign the array
 		Gson gson = new Gson();
+		long productTotal = 0;
 		for ( int i = 0; i < number ; i++ ) {
 			ItemDistribution itemD = gson.fromJson(gson.toJson(itemBaseline), ItemDistribution.class);
 			itemD.updateQuantities(arrayRoundRobin[i]);
 			itemD.updateTotalAverage();
+			productTotal += itemD.getTotal();
 			listDistribution.add(itemD);
 		}
+		
+		Double distributionMean = (double) (productTotal/listDistribution.size());
 		
 		Comparator<ItemDistribution> idComparator = (ItemDistribution a,ItemDistribution b)  -> a.getAveragePriceDouble().compareTo(b.getAveragePriceDouble());
 		Collections.sort(listDistribution,idComparator);
 		
+		/*
+		 * Average price should not be the criteria for redistributing.
+		 * Imagine you have distA = {price:10, quantity:2} and distB = {price:10, quantity:1}
+		 * average price is the same but total is way different 
+		 */
 		if ( Math.abs(listDistribution.get(0).getAveragePrice()-listDistribution.get(number-1).getAveragePrice()) > acceptableDifference ) {
-			adjustDistribution(listDistribution);
+			adjustDistribution(listDistribution,distributionMean,idComparator);
 		}
 		
 		return listDistribution;
@@ -123,7 +134,24 @@ public class ItemDistributionService {
 		return roundRobinArray;
 	}
 
-	private void adjustDistribution(List<ItemDistribution> listDistribution) {
+	/*
+	 * Strategy is to get the mean total for all the distributions. Then calc the difference between the biggest and the mean and the smallest and the mean
+	 * Use the smallest difference value V and find the biggest list of items/quantities from the biggest distribution that is smaller than V
+	 * Then transfer those quantities to the smallest. Finding that list is a time consuming combinatorial problem.
+	 * sort the full list and repeat. 
+	 */
+	private void adjustDistribution(List<ItemDistribution> listDistribution,Double distributionMean,Comparator<ItemDistribution> idComparator) {
 		logger.info("adjustDistribution to be implemented for product "+listDistribution.get(0).getProduct());
+		int number = listDistribution.size();
+		Collections.sort(listDistribution,idComparator);
+		Double diffB = listDistribution.get(0).getTotal() - distributionMean;
+		Double diffS = listDistribution.get(number-1).getTotal() - distributionMean;
+		List<ItemPartition> listTransfer = getCombination(listDistribution.get(0),diffB>diffS?diffS:diffB);
+	}
+	
+	private List<ItemPartition> getCombination(ItemDistribution itemD,Double targetTotal) {
+		List<ItemPartition> listTransfer = new ArrayList<ItemPartition>();
+	
+		return listTransfer;
 	}
 }

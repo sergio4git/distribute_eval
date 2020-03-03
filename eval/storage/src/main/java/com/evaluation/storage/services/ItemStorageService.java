@@ -122,6 +122,7 @@ public class ItemStorageService {
 		}
 	}
 	
+	//TODO: put this in a separate class
 	public boolean loadData() {
 		boolean succeeded = true;
 		
@@ -133,7 +134,8 @@ public class ItemStorageService {
 				// also remove or invalidate tracker
 				//TODO: create an endpoint in case a file was in error but was fixed afterwards.
 				// have to consider if bytesConsumed can be also reset easily
-				filetracker.setFinished(true);
+				// need to work on this a bit more using the messages to differentiate between file error and service error
+				// filetracker.setFinished(true);
 				logger.warn("Error loading "+filetracker.getFilename());
 				succeeded = false;
 			}

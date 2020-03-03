@@ -13,7 +13,12 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
  */
 public class ItemDeserializerJackson extends StdDeserializer<Item> { 
 	 
-    public ItemDeserializerJackson() { 
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public ItemDeserializerJackson() { 
         this(null); 
     } 
  

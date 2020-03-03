@@ -79,8 +79,9 @@ public class ItemDistribution {
 		this.averagePrice = averagePrice;
 	}
 
+	// Decoration to set decimal place back
 	public Double getAveragePriceDouble() {
-		return averagePrice;
+		return averagePrice/100;
 	}
 	
 	public void addItem(int quantity,long price) {

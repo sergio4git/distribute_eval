@@ -40,7 +40,7 @@ public class BasicDataReader {
 	private void loadDataGson(String fileName) {
 		try(BufferedReader in = new BufferedReader(new FileReader(new File(basePath+fileName)))) {
 			
-			StringBuilder sb = (StringBuilder)  in.lines().collect(StringBuilder::new,StringBuilder::append, (a,b) -> a.append(b.toString()));
+			StringBuilder sb =in.lines().collect(StringBuilder::new,StringBuilder::append, (a,b) -> a.append(b.toString()));
 
 		    GsonBuilder gsonBldr = new GsonBuilder();
 		    gsonBldr.registerTypeAdapter(Item.class, new ItemDeserializer());
@@ -61,7 +61,7 @@ public class BasicDataReader {
 	private void loadDataJackson(String fileName) {
 		try(BufferedReader in = new BufferedReader(new FileReader(new File(basePath+fileName)))) {
 			
-			StringBuilder sb = (StringBuilder)  in.lines().collect(StringBuilder::new,StringBuilder::append, (a,b) -> a.append(b.toString()));
+			StringBuilder sb = in.lines().collect(StringBuilder::new,StringBuilder::append, (a,b) -> a.append(b.toString()));
 
 			ObjectMapper objectMapper = new ObjectMapper();
 			SimpleModule module = new SimpleModule();
@@ -109,7 +109,7 @@ public class BasicDataReader {
 	public long testLoadDataGson() {
 		try(BufferedReader in = new BufferedReader(new FileReader(new File("D:\\Temp\\UBS\\teste-fullstack\\massa\\data_1.json")))) {
 			
-			StringBuilder sb = (StringBuilder)  in.lines().collect(StringBuilder::new,StringBuilder::append, (a,b) -> a.append(b.toString()));
+			StringBuilder sb = in.lines().collect(StringBuilder::new,StringBuilder::append, (a,b) -> a.append(b.toString()));
 
 		    GsonBuilder gsonBldr = new GsonBuilder();
 		    gsonBldr.registerTypeAdapter(Item.class, new ItemDeserializer());
@@ -133,7 +133,7 @@ public class BasicDataReader {
 	public long testLoadDataJackson() {
 		try(BufferedReader in = new BufferedReader(new FileReader(new File("D:\\Temp\\UBS\\teste-fullstack\\massa\\data_1.json")))) {
 			
-			StringBuilder sb = (StringBuilder)  in.lines().collect(StringBuilder::new,StringBuilder::append, (a,b) -> a.append(b.toString()));
+			StringBuilder sb = in.lines().collect(StringBuilder::new,StringBuilder::append, (a,b) -> a.append(b.toString()));
 
 			ObjectMapper objectMapper = new ObjectMapper();
 			SimpleModule module = new SimpleModule();

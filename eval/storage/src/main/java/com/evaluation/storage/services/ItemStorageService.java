@@ -112,7 +112,7 @@ public class ItemStorageService {
 			if ( dfmResponse.isSuccess())
 				return processMessage(dfmResponse);
 			else {
-				logger.warn(dfmResponse.getMessage());
+				logger.warn(()->dfmResponse.getMessage());
 				return false;
 			}
 				
@@ -129,14 +129,14 @@ public class ItemStorageService {
 		List<DatafileTracker> listTracker = datafileMapper.getTrackerMap().values().stream().filter(ft -> !ft.isFinished() ).collect(Collectors.toList());
 		while (!listTracker.isEmpty()) {
 		for ( DatafileTracker filetracker: listTracker) {
-			logger.info("Requesting load for "+filetracker.getFilename());
+			logger.info(()->"Requesting load for "+filetracker.getFilename());
 			if (!loadFile(filetracker.getFilename(),filetracker.getBytesConsumed()) ) {
 				// also remove or invalidate tracker
 				//TODO: create an endpoint in case a file was in error but was fixed afterwards.
 				// have to consider if bytesConsumed can be also reset easily
 				// need to work on this a bit more using the messages to differentiate between file error and service error
 				// filetracker.setFinished(true);
-				logger.warn("Error loading "+filetracker.getFilename());
+				logger.warn(()->"Error loading "+filetracker.getFilename());
 				succeeded = false;
 			}
 		}

@@ -3,9 +3,12 @@ package com.evaluation.warehouse.services;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -21,6 +24,7 @@ import com.evaluation.warehouse.mocks.BasicDataReader;
 import com.evaluation.warehouse.models.Item;
 import com.evaluation.warehouse.models.ItemDistribution;
 import com.evaluation.warehouse.models.ItemDistributionResponse;
+import com.evaluation.warehouse.models.ItemPartition;
 import com.evaluation.warehouse.models.ItemWrapper;
 
 @SpringBootTest
@@ -140,5 +144,31 @@ public class ItemDistributionServiceTests {
 		long l = basicReader.testLoadDataJackson();
 		logger.info("Jackson time is "+l);
 		assertTrue(l > 0);
+	}
+	
+	//@Test
+	public void testGenerateAll() {
+		List<Long> listL = new ArrayList<Long>();
+		long[] ar = {1,1,1,3,4,5,3,2,5};
+		for (Long a: ar ) {
+			listL.add(a);
+		}
+		
+		Map<Long,List<Long>> hmL = new HashMap<Long,List<Long>>();
+		
+		itemDistributionService.generateAll(listL, hmL);
+	}
+	
+	//@Test
+	/*
+	 * This is a test to generate all combinations from a distribution.But the flattened list for EMMS has 364 elements...
+	 * cant use generate all.
+	 */
+	public void testGeneratePartition() {
+		ItemDistributionResponse idResponse = itemDistributionService.getDistribution("EMMS", 2);
+
+		Map<Long,List<ItemPartition>> hmL = new HashMap<Long,List<ItemPartition>>();
+		
+		itemDistributionService.getCombinationFlat(idResponse.getListItemDistribution().get(0), 10000.0);
 	}
 }

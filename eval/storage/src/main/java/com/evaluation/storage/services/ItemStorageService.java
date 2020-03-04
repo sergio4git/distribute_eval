@@ -97,7 +97,7 @@ public class ItemStorageService {
 	public void requestFileInfo() {
 		try {
 			DatafileInformation  dfiResponse = restTemplate.getForObject("http://dataloader-service/load/fileinfo",DatafileInformation.class);
-			logger.info("Received "+dfiResponse.getDatafiles().size());
+			logger.info(()->"Received "+dfiResponse.getDatafiles().size());
 			addFiles(dfiResponse.getDatafiles());
 		} catch (Exception e) {
 			logger.error(e.getMessage());
